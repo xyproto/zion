@@ -1,21 +1,20 @@
-const ctype = @import("ctype");
-const err = @import("err");
-const errno = @import("errno.h");
+const ctype = @cInclude("ctype.h");
+const err = @cInclude("err.h");
+const errno = @cInclude("errno.h");
+const getopt = @cInclude("getopt.h");
+const inttypes= @cInclude("inttypes.h");
+const stdbool= @cInclude("stdbool.h");
+const stdio= @cInclude("stdio.h");
+const stdlib= @cInclude("stdlib.h");
+const string= @cInclude("string.h");
+const sys= @cInclude("sys/syscall.h");
+const unistd= @cInclude("unistd.h");
 
-!!! WORK IN PROGRESS !!!
+const versionString = "ion 1.0.0";
 
-#include <getopt.h>
-#include <inttypes.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/syscall.h>
-#include <unistd.h>
+// WORK IN PROGRESS!
 
-static const char* versionString = "ion 1.0.0";
-
-static inline int flush_standard_stream(FILE* stream)
+fn flush_standard_stream(stdio.FILE* stream) i32
 {
     int fd;
     errno = 0;
@@ -203,8 +202,7 @@ static void __attribute__((__noreturn__)) usage(void)
     exit(EXIT_SUCCESS);
 }
 
-int main(int argc, char** argv)
-{
+pub fn main(int argc, char** argv) {
     int data = 4, set = 0, c = 0, which = 0, who = 0;
     int ioclass = IOPRIO_CLASS_BE;
     const char* invalid_msg = NULL;
